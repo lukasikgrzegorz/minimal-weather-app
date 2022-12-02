@@ -1,24 +1,15 @@
 import React from "react";
+import css from "./CurrentWeather.module.css";
 
 const CurrentWeather = (props) => {
-	const { region, today } = props.data;
-	let iconType = "";
-	if (region) {
-		iconType = today.iconURL.split("/");
-		iconType = iconType[iconType.length - 1];
-	}
+	const { city, wheather, temp } = props.data;
+	console.log(props);
 
 	return (
 		<>
-			<img
-				width="200px"
-				src={region && `https://ssl.gstatic.com/onebox/weather/256/${iconType}`}
-			></img>
-			<p>{region}</p>
-			<p>{region && today.dayhour}</p>
-			<p>{region && today.comment}</p>
-			<p>Temp: {region && today.temp.c} °C</p>
-			<p>Wind: {region && today.wind.km} KM/H</p>
+			<img src={`http://openweathermap.org/img/wn/${wheather[0].icon}@2x.png`}></img>
+			<h3>{city}</h3>
+			<h2 className={css["temp-header"]}>{Math.round(temp.temp)}° </h2>
 		</>
 	);
 };

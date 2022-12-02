@@ -14,15 +14,16 @@ const App = () => {
 	};
 
 	const mapFetchedData = (data) => ({
-		region: data.region,
-		today: data.currentConditions,
-		nextDays: data.next_days,
+		city: data.city.name,
+		temp: data.list[0].main,
+		wheather: data.list[0].weather,
 	});
 
 	const fetchLocationQuery = async (location) => {
 		try {
 			const data = await fetchWather(location);
 			const mappedData = mapFetchedData(data);
+			// console.log(mappedData);
 			setData((oldData) => ({
 				...oldData,
 				...mappedData,
@@ -42,7 +43,7 @@ const App = () => {
 		<main>
 			<section>
 				<Serachbar onChangeHandler={_debounce(setLocationQuery, 600)}></Serachbar>
-				<CurrentWeather data={data}></CurrentWeather>
+				{data.city && <CurrentWeather data={data}></CurrentWeather>}
 			</section>
 		</main>
 	);
